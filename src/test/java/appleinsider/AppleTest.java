@@ -1,3 +1,6 @@
+package appleinsider;
+
+import core.BaseTest;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,9 +17,9 @@ public class AppleTest extends BaseTest {
                 .getHrefFromFirstArticle()
                 .contains(EXPECTED_WORD));
         /*
-          MainPage mainPage = new MainPage(BASE_URL);
+          appleinsider.MainPage mainPage = new appleinsider.MainPage(BASE_URL);
           mainPage.search(SEARCH_STRING);
-          SearchPage searchPage = new SearchPage();
+          appleinsider.SearchPage searchPage = new appleinsider.SearchPage();
           String href = searchPage.getHrefFromFirstArticle();
           Assert.assertTrue(href.contains("iphone-13"));
          */
