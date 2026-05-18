@@ -5,8 +5,8 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class BaseTest {
 
@@ -15,18 +15,20 @@ public abstract class BaseTest {
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
         Configuration.headless = false;
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
-                .screenshots(true)
-                .savePageSource(true)
+        SelenideLogger.addListener(
+                "allure",
+                new AllureSelenide()
+                        .screenshots(true)
+                        .savePageSource(true)
         );
     }
 
-    @Before
+    @BeforeEach
     public void init() {
         setUp();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         Selenide.closeWebDriver();
     }

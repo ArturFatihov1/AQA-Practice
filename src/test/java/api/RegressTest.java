@@ -1,7 +1,7 @@
 package api;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -22,14 +22,14 @@ public class RegressTest {
                 .get("api/users/?page=2")
                 .then().log().all()
                 .extract().body().jsonPath().getList("data", UserData.class);
-        users.forEach(x -> Assert.assertTrue(x.getAvatar().contains(x.getId().toString())));
-        Assert.assertTrue(users.stream().allMatch(x -> x.getEmail().endsWith("@reqres.in")));
+        users.forEach(x -> Assertions.assertTrue(x.getAvatar().contains(x.getId().toString())));
+        Assertions.assertTrue(users.stream().allMatch(x -> x.getEmail().endsWith("@reqres.in")));
 
         List<String> avatars = users.stream().map(UserData::getAvatar).toList();
         List<String> ids = users.stream().map(x -> x.getId().toString()).toList();
 
         for (int i = 0; i < avatars.size(); i++) {
-            Assert.assertTrue(avatars.get(i).contains(ids.get(i)));
+            Assertions.assertTrue(avatars.get(i).contains(ids.get(i)));
         }
     }
 
@@ -46,11 +46,11 @@ public class RegressTest {
                 .post("api/register")
                 .then().log().all()
                 .extract().as(SuccessReg.class);
-        Assert.assertNotNull(successReg.getId());
-        Assert.assertNotNull(successReg.getToken());
+        Assertions.assertNotNull(successReg.getId());
+        Assertions.assertNotNull(successReg.getToken());
 
-        Assert.assertEquals(id, successReg.getId());
-        Assert.assertEquals(token, successReg.getToken());
+        Assertions.assertEquals(id, successReg.getId());
+        Assertions.assertEquals(token, successReg.getToken());
     }
 
     @Test
@@ -65,7 +65,7 @@ public class RegressTest {
                 .post("api/register")
                 .then().log().all()
                 .extract().as(UnSuccessReg.class);
-        Assert.assertEquals("Missing password", unSuccessReg.getError());
+        Assertions.assertEquals("Missing password", unSuccessReg.getError());
     }
 
     @Test
@@ -78,10 +78,10 @@ public class RegressTest {
                 .get("api/unknown")
                 .then().log().all()
                 .extract().body().jsonPath().getList("data", UserInfo.class);
-        Assert.assertNotNull(users);
+        Assertions.assertNotNull(users);
         List<Integer> year = users.stream().map(UserInfo::getYear).toList();
         List<Integer> sortedYear = year.stream().sorted().toList();
-        Assert.assertEquals(sortedYear, year);
+        Assertions.assertEquals(sortedYear, year);
     }
 
     @Test

@@ -2,8 +2,8 @@ package hh;
 
 import core.BaseTest;
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class HhTest extends BaseTest {
 
         Map<String, Object> actualAttributes = hhResumePage.getAttributes();
 
-        Assert.assertEquals(expectedAttributes, actualAttributes);
+        Assertions.assertEquals(expectedAttributes, actualAttributes);
     }
 
     @Test
@@ -35,6 +35,7 @@ public class HhTest extends BaseTest {
                 hhResumePage.isIconVisible(),
                 hhResumePage.isReadyToRelocate()
         );
-        Assert.assertTrue(EqualsBuilder.reflectionEquals(expectedAttributes, actualAttributes));
+        Assertions.assertTrue(EqualsBuilder.reflectionEquals(expectedAttributes, actualAttributes));
+
     }
 }

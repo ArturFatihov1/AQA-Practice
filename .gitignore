@@ -5,6 +5,7 @@ target/
 .kotlin
 
 .idea
+.allure
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

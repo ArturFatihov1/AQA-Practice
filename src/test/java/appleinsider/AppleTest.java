@@ -1,8 +1,8 @@
 package appleinsider;
 
 import core.BaseTest;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class AppleTest extends BaseTest {
 
@@ -12,7 +12,7 @@ public class AppleTest extends BaseTest {
 
     @Test
     public void checkHref() {
-        Assert.assertTrue(new MainPage(BASE_URL)
+        Assertions.assertTrue(new MainPage(BASE_URL)
                 .search(SEARCH_STRING)
                 .getHrefFromFirstArticle()
                 .contains(EXPECTED_WORD));

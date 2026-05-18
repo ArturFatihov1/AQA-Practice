@@ -1,7 +1,7 @@
 package stepik;
 
 import core.BaseTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class StepikTest extends BaseTest {
     private static final String BASE_URL = "http://qa-stand-login.inzhenerka.tech/login";
