@@ -12,9 +12,11 @@ public abstract class BaseTest {
 
     public void setUp() {
         WebDriverManager.chromedriver().setup();
+        Configuration.remote = "http://selenoid:4444/wd/hub";
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = false;
+        Configuration.headless = true;
+
         SelenideLogger.addListener(
                 "allure",
                 new AllureSelenide()
