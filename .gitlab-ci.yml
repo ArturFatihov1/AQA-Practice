@@ -1,7 +1,7 @@
 image: maven:3.9.16-openjdk-26
 default:
   tags:
-    - shellLocal
+    - shellProject
 stages:
   - test
 Integration test with allure:
