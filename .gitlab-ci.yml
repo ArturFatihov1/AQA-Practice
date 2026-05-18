@@ -9,6 +9,3 @@ Integration test with allure:
   script:
     - mvn clean test
     - mvn allure:report
-  artifacts:
-    paths:
-      - target/allure-results/*
