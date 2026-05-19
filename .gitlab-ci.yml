@@ -1,17 +1,17 @@
 # image: maven:3.9.16-openjdk-26
-default:
-  tags:
-    - shellProject
-stages:
-  - test
-Integration test with allure:
-  stage: test
-  script:
-    - mvn clean test
-    - mvn allure:report
-  after_script:
-    - mvn allure:report
-  artifacts:
-    paths:
-      - when always
-      - target/allure-results/*
+#default:
+#  tags:
+#    - shellProject
+#stages:
+#  - test
+#Integration test with allure:
+#  stage: test
+#  script:
+#    - mvn clean test
+#    - mvn allure:report
+#  after_script:
+#    - mvn allure:report
+#  artifacts:
+#    paths:
+#      - when always
+#      - target/allure-results/*
