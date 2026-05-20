@@ -1,15 +1,18 @@
+version: '3.8'
+
 services:
   jenkins:
-    image: jenkins/jenkins:lts-jdk21
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins # Указываем собирать наш кастомный файл с докером внутри
     container_name: jenkins-ci
     privileged: true
-    user: root # Даем права root, чтобы Jenkins мог управлять Docker-командами
+    user: root
     ports:
-      - "8080:8080" # Порт для открытия интерфейса Jenkins в браузере
+      - "8080:8080"
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      # Магия DinD: пробрасываем Docker-сокет вашей Windows внутрь контейнера Jenkins
       - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:

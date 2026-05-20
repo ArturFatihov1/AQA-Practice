@@ -21,9 +21,9 @@ pipeline {
         stage('Run Tests via Docker Compose') {
             steps {
                 echo 'Запуск автотестов в Docker...'
-                sh 'docker compose up --build --force-recreate --abort-on-container-exit'
+                    sh 'docker-compose up --build --force-recreate --abort-on-container-exit'
+                }
             }
-        }
     }
 
     post {
@@ -36,7 +36,7 @@ pipeline {
                    results: [[path: 'target/allure-results']]
 
             echo 'Очистка Docker-инфраструктуры...'
-            sh 'docker compose down --volumes'
+            sh 'docker-compose down --volumes'
         }
     }
 }
