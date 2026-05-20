@@ -6,6 +6,7 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public abstract class BaseTest {
 
@@ -16,11 +17,15 @@ public abstract class BaseTest {
 //        Configuration.headless = false;
 //        Configuration.pageLoadStrategy = "eager";
         Configuration.headless = true;
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        Configuration.browserCapabilities = options;
 
-        String remoteUrl = System.getenv("SELENIUM_REMOTE_URL");
-        if (remoteUrl != null && !remoteUrl.isEmpty()) {
-            Configuration.remote = remoteUrl;
-        }
+//        String remoteUrl = System.getenv("SELENIUM_REMOTE_URL");
+//        if (remoteUrl != null && !remoteUrl.isEmpty()) {
+//            Configuration.remote = remoteUrl;
+//        }
 
         SelenideLogger.addListener(
                 "allure",
