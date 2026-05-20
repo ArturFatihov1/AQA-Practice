@@ -1,0 +1,12 @@
+FROM jenkins/jenkins:lts-jdk21
+
+USER root
+
+# Устанавливаем официальный клиент Docker и утилиту Docker Compose
+RUN apt-get update && apt-get install -y \
+    docker.io \
+    docker-compose \
+    && rm -rf /var/lib/apt/lists/*
+
+# Оставляем пользователя root, чтобы у Jenkins гарантированно хватало прав вызывать docker.sock на Windows
+USER root

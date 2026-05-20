@@ -1,18 +1,18 @@
 version: '3.8'
 
 services:
-  selenium-hub:
-    image: selenium/standalone-chrome:latest
-    shm_size: 2gb
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    container_name: jenkins-ci
+    privileged: true
     ports:
-      - "4444:4444"
-
-  autotests:
-    build: .
-    depends_on:
-      - selenium-hub
-    environment:
-      # Передаем правильный внутренний адрес для докера
-      - SELENIUM_REMOTE_URL=http://selenium-hub:4444/wd/hub
+      - "8080:8080"
+      - "50000:50000"
     volumes:
-      - ./target/allure-results:/automation/allure-results
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  jenkins_home:
