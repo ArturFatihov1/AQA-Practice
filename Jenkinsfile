@@ -6,19 +6,11 @@ pipeline {
     }
 
     stages {
-        stage('Run AQA Tests') {
-            // Jenkins сам поднимет этот контейнер, прогонит внутри команду и закроет его
-            agent {
-                docker {
-                    image 'maven:3.9.6-eclipse-temurin-21-jammy'
-                    // Пробрасываем аргументы: сеть хоста, чтобы видеть запущенный отдельно браузер
-                    args '--network host'
-                }
-            }
+        stage('Clean & Run Tests') {
             steps {
-                echo 'Запуск тестов внутри чистого Maven-контейнера...'
-                // Запускаем тесты. Allure-результаты автоматически окажутся в target/allure-results
-                sh 'mvn clean test'
+                echo 'Запуск автотестов через Docker Compose...'
+                // Нативная команда через пробел, которая поднимет тесты и браузер
+                sh 'docker compose up --build --force-recreate --abort-on-container-exit'
             }
         }
     }
@@ -31,6 +23,9 @@ pipeline {
                    properties: [],
                    reportBuildPolicy: 'ALWAYS',
                    results: [[path: 'target/allure-results']]
+
+            echo 'Очистка контейнеров...'
+            sh 'docker compose down --volumes'
         }
     }
 }

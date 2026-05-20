@@ -2,14 +2,13 @@ FROM jenkins/jenkins:lts-jdk21
 
 USER root
 
-# Переключаем стандартные репозитории на стабильные CDN-зеркала Cloudflare
-RUN sed -i 's/deb.debian.org/://cloudflare.com' /etc/apt/sources.list.d/debian.sources || true \
-    && sed -i 's/deb.debian.org/://cloudflare.com' /etc/apt/sources.list || true
-
-# Запускаем обновление с флагом исправления пропущенных пакетов
-RUN apt-get update && apt-get install -y --fix-missing \
-    docker.io \
-    docker-compose \
+# Устанавливаем официальный репозиторий Docker CLI для Debian Bookworm
+RUN apt-get update && apt-get install -y ca-certificates curl gnupg \
+    && mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://docker.com | gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://docker.com bookworm stable" > /etc/apt/sources.list.d/docker.list \
+    && apt-get update && apt-get install -y docker-ce-cli docker-compose-plugin \
     && rm -rf /var/lib/apt/lists/*
 
+# Даем пользователю jenkins права администратора внутри контейнера для доступа к сокету
 USER root
