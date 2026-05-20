@@ -2,11 +2,14 @@ FROM jenkins/jenkins:lts-jdk21
 
 USER root
 
-# Устанавливаем официальный клиент Docker и утилиту Docker Compose
-RUN apt-get update && apt-get install -y \
+# Переключаем стандартные репозитории на стабильные CDN-зеркала Cloudflare
+RUN sed -i 's/deb.debian.org/://cloudflare.com' /etc/apt/sources.list.d/debian.sources || true \
+    && sed -i 's/deb.debian.org/://cloudflare.com' /etc/apt/sources.list || true
+
+# Запускаем обновление с флагом исправления пропущенных пакетов
+RUN apt-get update && apt-get install -y --fix-missing \
     docker.io \
     docker-compose \
     && rm -rf /var/lib/apt/lists/*
 
-# Оставляем пользователя root, чтобы у Jenkins гарантированно хватало прав вызывать docker.sock на Windows
 USER root
