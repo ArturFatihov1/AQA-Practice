@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  selenium-hub:
+    image: selenium/standalone-chrome:latest
+    shm_size: 2gb
+    ports:
+      - "4444:4444"
+
+  autotests:
+    build: .
+    depends_on:
+      - selenium-hub
+    environment:
+      # Передаем правильный внутренний адрес для докера
+      - SELENIUM_REMOTE_URL=http://selenium-hub:4444/wd/hub
+    volumes:
+      - ./target/allure-results:/automation/allure-results

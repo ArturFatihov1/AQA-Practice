@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 
 public class MainPage {
-    private final SelenideElement cookie = $x("//button[@class = \"fc-button fc-cta-do-not-consent fc-secondary-button\"]");
+    //    private final SelenideElement cookie = $x("//button[@class = \"fc-button fc-cta-do-not-consent fc-secondary-button\"]");
     private final SelenideElement textBoxInput = $x("//input[@type= \"text\"]");
 
     public MainPage(String url) {
@@ -25,7 +25,7 @@ public class MainPage {
      * @param query - поисковая строка
      */
     public SearchPage search(String query) {
-        cookie.click();
+//        cookie.click();
         textBoxInput.setValue(query);
         textBoxInput.sendKeys(Keys.ENTER);
         return new SearchPage();

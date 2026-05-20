@@ -10,10 +10,17 @@ import org.junit.jupiter.api.BeforeEach;
 public abstract class BaseTest {
 
     public void setUp() {
-        Configuration.remote = "http://localhost:4444/wd/hub";
-        Configuration.browser = "chrome";
+        Configuration.browser = "chrome"; // Оставляем chrome, Selenide сам подтянет Chromium в Linux
         Configuration.browserSize = "1920x1080";
+        Configuration.pageLoadStrategy = "eager";
+//        Configuration.headless = false;
+//        Configuration.pageLoadStrategy = "eager";
         Configuration.headless = true;
+
+        String remoteUrl = System.getenv("SELENIUM_REMOTE_URL");
+        if (remoteUrl != null && !remoteUrl.isEmpty()) {
+            Configuration.remote = remoteUrl;
+        }
 
         SelenideLogger.addListener(
                 "allure",
